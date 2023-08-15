@@ -7,7 +7,7 @@
  */
 int main(UNUSED int ac, char **av)
 {
-	if (isatty(SRD_FILENO) == 1)
+	if (isatty(STDIN_FILENO) == 1)
 		shell_interactive(av);
 	else
 		shell_non_interactive(av);
@@ -18,10 +18,10 @@ int main(UNUSED int ac, char **av)
  * @av: argument vector
  * Return: 0
  */
-int shell_interactive(char **av)
+int shell_interactive(char **av UNUSED)
 {
-	char *cmd, *args[BUF_SIZE];
-	int num, status, exit_status;
+	char *cmd UNUSED, *args[BUF_SIZE] UNUSED;
+	int num;
 
 	num = 0;
 	do {
@@ -29,9 +29,23 @@ int shell_interactive(char **av)
 		num++;
 		write(1, "sapa $>> ", 9);
 		cmd = read_cmd();
-		if (cmd == NULL)
-			exit(errno);
-		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
-			continue;
-	}
+	} while (1);
+
+}
+/**
+ * shell_non_interactive - runs the shell in non interactiv mode
+ * @av: argument vectors
+ * Return: 0
+ */
+int shell_non_interactive(char **av UNUSED)
+{
+	char *cmd UNUSED, *args[BUF_SIZE] UNUSED;
+	int num;
+
+	num = 0;
+	do {
+		errno = 0;
+		num++;
+		cmd = read_cmd();
+	} while (1);
 }
