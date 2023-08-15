@@ -8,13 +8,13 @@
 /**LIBRARIES**/
 #include <stdio.h>
 #include <unistd.h>
-#include <fctnl.h>
+#include <fcntl.h>
 #include <sys/wait.h>
 #include <errno.h>
 #include <string.h>
 #include <stddef.h>
 #include <sys/types.h>
-#include <stdlib/h>
+#include <stdlib.h>
 
 /**SHELL_FUNCTIONS**/
 int shell_interactive(char **av);
