@@ -25,9 +25,9 @@ int space(char s);
 void remspace(char *s);
 int check_builtins(char **arr);
 void comment_va(char *buf);
-int handle_path(char **arr, char **av, int count);
-int execute(char **arr);
-char *makae_path(char *p);
+void handle_path(char **arr, char **av, int count);
+void execute(char **arr);
+char *make_path(char *p);
 void _perror(char **arr, int count);
 
 /**
