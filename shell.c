@@ -18,10 +18,10 @@ int main(UNUSED int ac, char **av)
  * @av: argument vector
  * Return: 0
  */
-int shell_interactive(char **av UNUSED)
+int shell_interactive(UNUSED char **av)
 {
 	char *cmd UNUSED, *args[BUF_SIZE] UNUSED;
-	int num;
+	int num, exit_status;
 
 	num = 0;
 	do {
@@ -29,23 +29,64 @@ int shell_interactive(char **av UNUSED)
 		num++;
 		write(1, "sapa $>> ", 9);
 		cmd = read_cmd();
+		if (cmd == NULL)
+			exit(errno);
+		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
+			continue;
+		remspace(cmd);
+		tokenize(cmd, args);
+		if (check_builtins(args) == 0)
+		{
+		}
+		else if (_strcmp(args[0], "exit") == 0)
+		{
+			exit_status = 0;
+			if (args[1] != NULL)
+				exit_status = _atoi(args[1]);
+			free(cmd);
+			exit_func(exit_status);
+			return (0);
+		}
+		else
+			handle_path(args, av, num);
+		free(cmd);
 	} while (1);
-
 }
 /**
  * shell_non_interactive - runs the shell in non interactiv mode
  * @av: argument vectors
  * Return: 0
  */
-int shell_non_interactive(char **av UNUSED)
+int shell_non_interactive(UNUSED char **av)
 {
 	char *cmd UNUSED, *args[BUF_SIZE] UNUSED;
-	int num;
+	int num, exit_status;
 
 	num = 0;
 	do {
 		errno = 0;
 		num++;
 		cmd = read_cmd();
+		if (cmd == NULL)
+			exit(errno);
+		if (cmd[0] == '\0' || (_strcmp(cmd, "\n") == 0))
+			continue;
+		remspace(cmd);
+		tokenize(cmd, args);
+		if (check_builtins(args) == 0)
+		{
+		}
+		else if (_strcmp(args[0], "exit") == 0)
+		{
+			exit_status = 0;
+			if (args[1] != NULL)
+				exit_status = _atoi(args[1]);
+			free(cmd);
+			exit_func(exit_status);
+			return (0);
+		}
+		else
+			handle_path(args, av, num);
+		free(cmd);
 	} while (1);
 }

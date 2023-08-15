@@ -107,4 +107,7 @@ int _env(void);
 int _unsetenv(char *name);
 int _setenv(char *name, char *value);
 void cd_func(const char *dir);
+
+/** UTILITIES **/
+int _atoi(char *s);
 #endif
