@@ -70,7 +70,7 @@ void _print_d(int num)
 /**
  * _perror - print error message
  * @arr: array of commands
- * @count: count of command
+ * @arg: name of the command
  */
 void _perror(char *arg, char **arr)
 {
@@ -80,4 +80,24 @@ void _perror(char *arg, char **arr)
 	_printf(arg);
 	_printf(": ");
 	_printf("command not found \n");
+}
+/**
+ * pstderr - prints to stderr
+ * @arr: array of commands
+ * @av: argument vector
+ * @count: count
+ * @fc: wrong argument
+ */
+void _pstderr(char **arr, char **av, int count, char *fc)
+{
+	write(2, av[0], _strlen(av[0]));
+	write(2, ": ", 2);
+	_printsd(count);
+	write(2, ": ", 2);
+	write(2, arr[0], _strlen(arr[0]));
+	write(2, ": ", 2);
+	write(2, "Illegal number", 14);
+	write(2, ": ", 2);
+	write(2, fc, _strlen(fc));
+	write(2, "\n", 1);
 }
