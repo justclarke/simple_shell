@@ -21,11 +21,11 @@ int main(UNUSED int ac, char **av)
 int shell_interactive(UNUSED char **av)
 {
 	char *cmd UNUSED, *args[BUF_SIZE] UNUSED;
-	int num, exit_status;
+	int num, exit_s;
 
+	errno = 0;
 	num = 0;
 	do {
-		errno = 0;
 		num++;
 		write(1, "sapa $>> ", 9);
 		cmd = read_cmd();
@@ -40,17 +40,18 @@ int shell_interactive(UNUSED char **av)
 		}
 		else if (_strcmp(args[0], "exit") == 0)
 		{
-			exit_status = 0;
-			if (args[1] != NULL)
-				exit_status = _atoi(args[1]);
+			exit_s = exit_func(args, av, num, args[1]);
 			free(cmd);
-			exit_func(exit_status);
-			return (0);
+			if (exit_s == 123)
+				exit(errno);
+			else
+				exit(exit_s);
 		}
 		else
 			handle_path(args, av);
 		free(cmd);
 	} while (1);
+	return (0);
 }
 /**
  * shell_non_interactive - runs the shell in non interactiv mode
@@ -60,11 +61,11 @@ int shell_interactive(UNUSED char **av)
 int shell_non_interactive(UNUSED char **av)
 {
 	char *cmd UNUSED, *args[BUF_SIZE] UNUSED;
-	int num, exit_status;
+	int num, exit_s;
 
+	errno = 0;
 	num = 0;
 	do {
-		errno = 0;
 		num++;
 		cmd = read_cmd();
 		if (cmd == NULL)
@@ -78,12 +79,11 @@ int shell_non_interactive(UNUSED char **av)
 		}
 		else if (_strcmp(args[0], "exit") == 0)
 		{
-			exit_status = 0;
-			if (args[1] != NULL)
-				exit_status = _atoi(args[1]);
+			exit_s = exit_func(args, av, num, args[1]);
 			free(cmd);
-			exit_func(exit_status);
-			return (0);
+			if (exit_s == 123)
+				continue;
+			exit(exit_s);
 		}
 		else
 			handle_path(args, av);

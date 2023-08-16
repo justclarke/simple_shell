@@ -43,9 +43,26 @@ int check_builtins(char **arr)
  * exit_func - function for exit
  * @status: exist statues
  */
-void exit_func(int status)
+int exit_func(char **arr, char **av, int count, char *status UNUSED)
 {
-	exit(status);
+	int code = errno, i;
+
+	if (status != NULL)
+	{
+		i = 0;
+		while (status[i])
+		{
+			if (!(status[i] > 47 && status[i] < 58))
+			{
+				_pstderr(arr, av, count, status);
+				errno = 2;
+				return (123);
+			}
+			i++;
+		}
+		code = _atoi(status);
+	}
+	return (code);
 }
 
 /**
