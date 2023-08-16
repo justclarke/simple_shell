@@ -25,10 +25,10 @@ int space(char s);
 void remspace(char *s);
 int check_builtins(char **arr);
 void comment_va(char *buf);
-void handle_path(char **arr, char **av, int count);
+void handle_path(char **arr, char **av);
 void execute(char **arr);
 char *make_path(char *p);
-void _perror(char **arr, int count);
+void _perror(char *arg, char **arr);
 
 /**
  * struct node - linked list
