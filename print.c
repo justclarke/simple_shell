@@ -72,12 +72,12 @@ void _print_d(int num)
  * @arr: array of commands
  * @count: count of command
  */
-void _perror(char **arr, int count)
+void _perror(char *arg, char **arr)
 {
 	errno = 127;
 	_printf(arr[0]);
 	_printf(": ");
-	_print_d(count);
+	_printf(arg);
 	_printf(": ");
 	_printf("command not found \n");
 }
