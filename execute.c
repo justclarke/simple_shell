@@ -6,7 +6,7 @@
  * @count: command count
  * Return: ex_code
  */
-void handle_path(char **arr, char **av, int count)
+void handle_path(char **arr, char **av)
 {
 	char *f_str, *f_path;
 
@@ -21,7 +21,7 @@ void handle_path(char **arr, char **av, int count)
 		else
 		{
 			errno = 2;
-			_perror(av, count);
+			_perror(f_str, av);
 		}
 	}
 	else
@@ -33,7 +33,7 @@ void handle_path(char **arr, char **av, int count)
 		else
 		{
 			errno = 2;
-			_perror(av, count);
+			_perror(f_str, av);
 		}
 		free(f_path);
 	}
