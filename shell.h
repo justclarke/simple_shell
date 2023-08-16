@@ -29,6 +29,7 @@ void handle_path(char **arr, char **av);
 void execute(char **arr);
 char *make_path(char *p);
 void _perror(char *arg, char **arr);
+void _pstderr(char **arr, char **av, int count, char *fc);
 
 /**
  * struct node - linked list
@@ -96,12 +97,13 @@ void update_environ(struct node *head);
 /** PRINT HELPERS **/
 void _printf(char *s);
 void _print_d(int num);
+void _printsd(int num);
 int _putchar(char c);
 void print_list(struct node *head);
 void free_list(struct node *head);
 
 /** COMMANDS **/
-void exit_func(int status);
+int exit_func(char **arr, char **av, int count, char *status UNUSED);
 extern char **environ;
 int _env(void);
 int _unsetenv(char *name);
