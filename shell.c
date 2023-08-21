@@ -48,7 +48,7 @@ int shell_interactive(UNUSED char **av)
 				exit(exit_s);
 		}
 		else
-			handle_path(args, av);
+			handle_path(args, av, num);
 		free(cmd);
 	} while (1);
 	return (0);
@@ -86,7 +86,7 @@ int shell_non_interactive(UNUSED char **av)
 			exit(exit_s);
 		}
 		else
-			handle_path(args, av);
+			handle_path(args, av, num);
 		free(cmd);
 	} while (1);
 }
