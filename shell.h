@@ -25,10 +25,10 @@ int space(char s);
 void remspace(char *s);
 int check_builtins(char **arr);
 void comment_va(char *buf);
-void handle_path(char **arr, char **av);
+void handle_path(char **arr, char **av, int count);
 void execute(char **arr);
 char *make_path(char *p);
-void _perror(char *arg, char **arr);
+void _perror(char *arg, char **arr, int count);
 void _pstderr(char **arr, char **av, int count, char *fc);
 
 /**
@@ -97,7 +97,6 @@ void update_environ(struct node *head);
 /** PRINT HELPERS **/
 void _printf(char *s);
 void _print_d(int num);
-void _printsd(int num);
 int _putchar(char c);
 void print_list(struct node *head);
 void free_list(struct node *head);
