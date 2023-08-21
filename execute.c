@@ -6,7 +6,7 @@
  * @count: command count
  * Return: ex_code
  */
-void handle_path(char **arr, char **av)
+void handle_path(char **arr, char **av, int count)
 {
 	char *f_str, *f_path;
 
@@ -20,8 +20,19 @@ void handle_path(char **arr, char **av)
 			execute(arr);
 		else
 		{
-			errno = 2;
-			_perror(f_str, av);
+			_perror(f_str, av, count);
+			return;
+		}
+	}
+	else if (arr[0][0] == '.')
+	{
+		f_path = arr[0];
+		if (access(f_path, X_OK) == 0)
+			execute(arr);
+		else
+		{
+			_perror(f_str, av, count);
+			return;
 		}
 	}
 	else
@@ -32,8 +43,8 @@ void handle_path(char **arr, char **av)
 			execute(arr);
 		else
 		{
-			errno = 2;
-			_perror(f_str, av);
+			_perror(f_str, av, count);
+			return;
 		}
 		free(f_path);
 	}
