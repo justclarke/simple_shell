@@ -8,7 +8,7 @@
  */
 int _putchar(char c)
 {
-	return (write(1, &c, 1));
+	return (write(2, &c, 1));
 }
 /**
  * _printf - prints a string
@@ -65,21 +65,23 @@ void _print_d(int num)
 		buffer[i] = buffer[len - i - 1];
 		buffer[len - i - 1] = temp;
 	}
-	write(1, buffer, len);
+	write(2, buffer, len);
 }
 /**
  * _perror - print error message
  * @arr: array of commands
  * @arg: name of the command
  */
-void _perror(char *arg, char **arr)
+void _perror(char *arg, char **arr, int count)
 {
 	errno = 127;
 	_printf(arr[0]);
 	_printf(": ");
+	_print_d(count);
+	_printf(": ");
 	_printf(arg);
 	_printf(": ");
-	_printf("command not found \n");
+	_printf("not found\n");
 }
 /**
  * pstderr - prints to stderr
@@ -92,7 +94,7 @@ void _pstderr(char **arr, char **av, int count, char *fc)
 {
 	write(2, av[0], _strlen(av[0]));
 	write(2, ": ", 2);
-	_printsd(count);
+	_print_d(count);
 	write(2, ": ", 2);
 	write(2, arr[0], _strlen(arr[0]));
 	write(2, ": ", 2);
