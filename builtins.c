@@ -126,5 +126,5 @@ void cd_func(const char *dir)
 		perror("setenv");
 	}
 	}
-	free(current_dir)
+	free(current_dir);
 }

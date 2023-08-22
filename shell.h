@@ -15,6 +15,7 @@
 #include <stddef.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <signal.h>
 
 /**SHELL_FUNCTIONS**/
 int shell_interactive(char **av);
@@ -30,6 +31,7 @@ void execute(char **arr);
 char *make_path(char *p);
 void _perror(char *arg, char **arr, int count);
 void _pstderr(char **arr, char **av, int count, char *fc);
+void ctrlc(int sig __attribute__((unused)));
 
 /**
  * struct node - linked list

@@ -25,6 +25,7 @@ int shell_interactive(UNUSED char **av)
 
 	errno = 0;
 	num = 0;
+	signal(SIGINT, ctrlc);
 	do {
 		num++;
 		write(1, "sapa $>> ", 9);
@@ -89,4 +90,13 @@ int shell_non_interactive(UNUSED char **av)
 			handle_path(args, av, num);
 		free(cmd);
 	} while (1);
+}
+/**
+ * ctrlc - signal handle for ctrlc
+ * @sig: signal number
+ */
+void ctrlc(int sig __attribute__((unused)))
+{
+	write(1, "\n", 1);
+	exit(0);
 }
