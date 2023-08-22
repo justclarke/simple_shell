@@ -71,6 +71,7 @@ void _print_d(int num)
  * _perror - print error message
  * @arr: array of commands
  * @arg: name of the command
+ * @count: count of command
  */
 void _perror(char *arg, char **arr, int count)
 {
@@ -84,7 +85,7 @@ void _perror(char *arg, char **arr, int count)
 	_printf("not found\n");
 }
 /**
- * pstderr - prints to stderr
+ * _pstderr - prints to stderr
  * @arr: array of commands
  * @av: argument vector
  * @count: count

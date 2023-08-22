@@ -41,9 +41,14 @@ int check_builtins(char **arr)
 }
 /**
  * exit_func - function for exit
+ * @arr: array of commands
+ * @av: argument ending
+ * @count: count of command
  * @status: exist statues
+ * Return: code
  */
-int exit_func(char **arr, char **av, int count, char *status UNUSED)
+int exit_func(char **arr, char **av, int count,
+char *status __attribute__((unused)))
 {
 	int code = errno, i;
 
