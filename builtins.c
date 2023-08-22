@@ -83,18 +83,13 @@ void env_func(void)
 	}
 }
 /**
- * cd_func - change the current directory of the the process
- * @dir: Directory to change to NULL
+ * cd_func - Change the current directory of the process
+ * @dir: Directory to change to (or NULL)
  */
 void cd_func(const char *dir)
 {
 	char *current_dir;
 	int ret;
-
-	if (dir == NULL)
-	{
-		dir = _getenv("HOME");
-	}
 
 	current_dir = getcwd(NULL, 0);
 	if (current_dir == NULL)
@@ -102,7 +97,21 @@ void cd_func(const char *dir)
 		perror("getcwd");
 		return;
 	}
-
+	if (dir == NULL)
+	{
+		dir = _getenv("HOME");
+	}
+	else if (strcmp(dir, "-") == 0)
+	{
+	dir = _getenv("OLDPWD");
+	if (dir == NULL)
+	{
+		perror("cd");
+		free(current_dir);
+		return;
+	}
+	printf("%s\n", dir);
+	}
 	ret = chdir(dir);
 	if (ret == -1)
 	{
@@ -110,12 +119,12 @@ void cd_func(const char *dir)
 	}
 	else
 	{
+		setenv("OLDPWD", current_dir, 1);
 		ret = setenv("PWD", dir, 1);
-		if (ret == -1)
-		{
-			perror("setenv");
-		}
+	if (ret == -1)
+	{
+		perror("setenv");
 	}
-
-	free(current_dir);
+	}
+	free(current_dir)
 }
